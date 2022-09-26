@@ -1,10 +1,21 @@
-# My Personal Project
+# CPSC210 Personal Project
 
-## A subtitle
+## A Currency Converter
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+- This application will allow users to transfer one currency to another
+currency with a live currency rate. There will be multiple currencies
+for the user to select. Many people will use currency converters
+because these days, people travel around the world very frequently,
+so it is essential to check the local currency rate. Online shopping 
+has become increasingly popular, and people buy items at different
+websites from different countries. Therefore, it is important to check
+the price of another currency. 
 
-An example of text with **bold** and *italic* fonts.  
+- This project is very interesting because it helps people to know
+whether it is the right time to exchange their money for another
+currency or not because sometimes a country's currency may drop and 
+Currency converter can check whether it is the right time or not, it
+helps to determine it. It also helps to determine a country's economic
+health.
+
+
