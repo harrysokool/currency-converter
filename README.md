@@ -18,4 +18,11 @@ Currency converter can check whether it is the right time or not, it
 helps to determine it. It also helps to determine a country's economic
 health.
 
+## User Stories
+- As a user, I want to be able to add a currency to a currency list.
+- As a user, I want to be able to view the list of currencies in the currency list.
+- As a user, I want to be able to remove a currency from currency list.
+- As a user, I want to be able to enter the amount of a currency and transfer it into another currency.
+
+
 
