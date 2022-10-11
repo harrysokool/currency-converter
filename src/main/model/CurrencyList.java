@@ -6,7 +6,9 @@ import java.util.List;
 
 public class CurrencyList {
     // fields
-    private final List<Currency> currencies; // list of currencies
+    private List<Currency> currencies; // list of currencies
+    private Currency currency1; // to change this currency
+    private Currency currency2; // to change into this currency
 
     //methods
     /*EFFECTS: initialize an empty list of currencies
@@ -15,43 +17,125 @@ public class CurrencyList {
         currencies = new ArrayList<>();
     }
 
-    /*
-     * REQUIRES: a valid currency
-     * MODIFIES: this
-     * EFFECTS: add currency into currencies.
-     */
-    public String addCurrency(Currency currency) {
-        currencies.add(currency);
-        return currency.getCurrencyName();
+    public int size() {
+        return currencies.size();
+    }
+
+    public Currency get(int i) {
+        return currencies.get(i);
+    }
+
+    public Currency getCurrency1() {
+        return currency1;
+    }
+
+    public Currency getCurrency2() {
+        return currency2;
     }
 
     /*
-     * REQUIRES: a valid currency
+     * REQUIRES: a valid and initialize currency
      * MODIFIES: this
-     * EFFECTS: remove currency from currencies.
+     * EFFECTS: if currencies size is 0, then add currency and return true; if currencies size > 0, and
+     *          if currency not in currencies, then add currency into currencies and return true;
+     *          if currencies size > 0 and currency is already in currencies, then return false
      */
-    public String removeCurrency(Currency currency) {
-        currencies.remove(currency);
-        return currency.getCurrencyName();
+    public boolean addCurrency(Currency currency) {
+        if (currencies.size() == 0) {
+            currencies.add(currency);
+            return true;
+        } else if (!currencies.contains(currency)) {
+            currencies.add(currency);
+            return true;
+        }
+        return false;
     }
 
     /*
-     * EFFECTS: list currencies
+     * REQUIRES: a valid currency name
+     * MODIFIES: this
+     * EFFECTS: remove currency from currencies if found, else
+     *          return a message saying that the currency is not
+     *          in the currency list.
      */
-    public List<Currency> listCurrencies() {
-        return currencies;
+    public boolean removeCurrency(String currency) {
+        if (currencies.size() == 0) {
+            return false;
+        } else {
+            for (Currency curr : currencies) {
+                if (curr.getCurrencyName().equals(currency.toUpperCase())) {
+                    currencies.remove(curr);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /*
-     * REQUIRES: amount >= 0
      * MODIFIES: this
-     * EFFECTS: rate to 1 USD of the currency is updated
+     * EFFECTS: if currencies size = 0, return false, checks if currency is in currencies,
+     *          if it is in currencies, assign currency1 to the existing currency.
      */
-    public double convertCurrency(Currency prevCurrency, Currency nextCurrency, double amount) {
+    public boolean oldCurrency(String currency) {
+        for (Currency curr : currencies) {
+            if (currency.toUpperCase().equals(curr.getCurrencyName())) {
+                this.currency1 = curr;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: if currencies size = 0, return false, checks if currency is in currencies,
+     *          if it is in currencies, assign currency2 to the existing currency.
+     */
+    public boolean newCurrency(String currency) {
+        for (Currency curr : currencies) {
+            if (currency.toUpperCase().equals(curr.getCurrencyName())) {
+                this.currency2 = curr;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean containsBothCurrencies(String currency1, String currency2) {
+        if (oldCurrency(currency1.toUpperCase()) && newCurrency(currency2.toUpperCase())) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * REQUIRES: prevCurrency, nextCurrency must be in the currencies, amount >= 0
+     * EFFECTS: convert and return amount from prevCurrency into nextCurrency
+     */
+    public double convertCurrency(String prevCurrency, String nextCurrency, double amount) {
         double finalAmount;
-        prevCurrency.toUSD(amount);
-        finalAmount = prevCurrency.getUsd() * nextCurrency.getRateToOneUSD();
-        return finalAmount;
+        double amountInUSD;
+        containsBothCurrencies(prevCurrency.toUpperCase(), nextCurrency.toUpperCase());
+        amountInUSD = amount * currency1.getRateToOneUSD();
+        finalAmount = amountInUSD / currency2.getRateToOneUSD();
+        return (double) Math.round(finalAmount * 100) / 100;
+    }
+
+    /*
+     * EFFECTS: list currency in currencies if currencies size > 0,
+     *          else shows a message "No currency in the list"
+     */
+    public String listCurrencies() {
+        if (currencies.size() > 0) {
+            String curr = "";
+            for (Currency currency : currencies) {
+                curr += " " + currency.getCurrencyName();
+            }
+            return "currencies =" + curr;
+        } else {
+            return "No currency in the list";
+        }
     }
 
 }

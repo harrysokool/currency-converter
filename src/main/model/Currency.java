@@ -5,8 +5,6 @@ public class Currency {
     //fields
     private String currencyName; // name of the currency
     private double rateToOneUSD; // rate of the currency to 1 USD. e.g.) 1 USD = rate * 8 HKD
-    private double amount; // amount of the currency
-    private double usd; // amount of the currency to usd
 
     //methods
     /*
@@ -16,43 +14,20 @@ public class Currency {
      *          to 0.
      */
     public Currency(String currencyName, double rateToOneUSD) {
-        setCurrencyName(currencyName);
+        setCurrencyName(currencyName.toUpperCase());
         updateRate(rateToOneUSD);
-        amount = 0;
-        usd = 0;
-    }
-
-    public double getUsd() {
-        return usd;
-    }
-
-    public double getAmount() {
-        return amount;
     }
 
     public String getCurrencyName() {
-        return currencyName;
+        return currencyName.toUpperCase();
+    }
+
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName.toUpperCase();
     }
 
     public double getRateToOneUSD() {
         return rateToOneUSD;
-    }
-
-    public void setCurrencyName(String currencyName) {
-        this.currencyName = currencyName;
-    }
-
-    public void setUsd(double usd) {
-        this.usd = usd;
-    }
-
-    /*
-     * REQUIRES: amount >= 0
-     * MODIFIES: this
-     * EFFECTS: amount is updated
-     */
-    public void amountToConvert(double amount) {
-        this.amount = amount;
     }
 
     /*
@@ -65,29 +40,23 @@ public class Currency {
     }
 
     /*
-     * REQUIRES: amount >= 0
-     * MODIFIES: this
-     * EFFECTS: usd of the currency is updated
-     */
-    public void toUSD(double amount) {
-        amountToConvert(amount);
-        setUsd(getAmount() * getRateToOneUSD());
-    }
-
-    /*
      * EFFECTS: returns a string representation of currency
      */
     @Override
     public String toString() {
-        return "Currency{"
-                + "Currency name='" + currencyName + '\''
-                + ", Rate to ene USD=" + rateToOneUSD
-                + '}';
+        return "currencyName = " + currencyName + ", rateToOneUSD = " + rateToOneUSD + "\n";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Currency currency = (Currency) o;
+        return currencyName.equals(currency.currencyName)
+                && rateToOneUSD == currency.rateToOneUSD;
+    }
 }
-
-
-
-
-
