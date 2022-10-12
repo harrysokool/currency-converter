@@ -22,6 +22,7 @@ health.
 - As a user, I want to be able to add a currency to a currency list.
 - As a user, I want to be able to view the list of currencies in the currency list.
 - As a user, I want to be able to remove a currency from currency list.
-- As a user, I want to be able to enter the amount of a currency and transfer it into another currency.
+- As a user, I want to be able to enter the amount of a currency and 
+  transfer it into another currency from the currency list.
 
 

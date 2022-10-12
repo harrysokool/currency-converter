@@ -41,12 +41,14 @@ public class CurrencyList {
      *          if currencies size > 0 and currency is already in currencies, then return false
      */
     public boolean addCurrency(Currency currency) {
-        if (currencies.size() == 0) {
-            currencies.add(currency);
-            return true;
-        } else if (!currencies.contains(currency)) {
-            currencies.add(currency);
-            return true;
+        if (!(currency == null)) {
+            if (currencies.size() == 0) {
+                currencies.add(currency);
+                return true;
+            } else if (!currencies.contains(currency)) {
+                currencies.add(currency);
+                return true;
+            }
         }
         return false;
     }

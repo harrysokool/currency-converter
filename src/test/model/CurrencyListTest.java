@@ -52,6 +52,14 @@ public class CurrencyListTest {
 
     }
 
+    // currencies size != 0 added invalid currency
+    @Test
+    void testAddCurrency4(){
+        assertEquals(0, testCurrencies.size());
+        assertEquals(false,  testCurrencies.addCurrency(null));
+        assertEquals(0, testCurrencies.size());
+    }
+
     // currencies size = 0
     @Test
     void testRemoveCurrency1(){
@@ -184,20 +192,16 @@ public class CurrencyListTest {
         assertEquals(false, testCurrencies.containsBothCurrencies("hkd", "cad"));
     }
 
-
+    // when both currencies are in the testcurrencies and amount is 0, 1 and 100
     @Test
-    void testConvertCurrency1(){
-
-    }
-
-    @Test
-    void testConvertCurrency2(){
-
-    }
-
-    @Test
-    void testConvertCurrency3(){
-
+    void testConvertCurrency(){
+        testCurrencies.addCurrency(new Currency("HKD", 0.125));
+        testCurrencies.addCurrency(new Currency("CAD", 0.727));
+        assertEquals(true, testCurrencies.oldCurrency("HKD"));
+        assertEquals(true, testCurrencies.newCurrency("CAD"));
+        assertEquals(0, testCurrencies.convertCurrency("cad", "hkd", 0));
+        assertEquals(5.82, testCurrencies.convertCurrency("cad", "hkd", 1));
+        assertEquals(581.6, testCurrencies.convertCurrency("cad", "hkd", 100));
     }
 
 
