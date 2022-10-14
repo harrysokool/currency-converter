@@ -21,6 +21,7 @@ public class CurrencyList {
         return currencies.size();
     }
 
+    // EFFECTS: returns currency at index i in currencies.
     public Currency get(int i) {
         return currencies.get(i);
     }
@@ -57,8 +58,7 @@ public class CurrencyList {
      * REQUIRES: a valid currency name
      * MODIFIES: this
      * EFFECTS: remove currency from currencies if found, else
-     *          return a message saying that the currency is not
-     *          in the currency list.
+     *          return false.
      */
     public boolean removeCurrency(String currency) {
         if (currencies.size() == 0) {
