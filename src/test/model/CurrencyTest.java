@@ -39,9 +39,18 @@ public class CurrencyTest {
         Currency curr1 = new Currency("hkd", 0.125);
         Currency curr2 = new Currency("cad", 0.727);
         Currency curr3 = new Currency("hkd", 0.125);
+        Currency curr4 = new Currency("hkd", 0.700);
+        Currency curr5 = new Currency("cad", 0.125);
         assertEquals(true, curr1.equals(curr1));
         assertEquals(false, curr1.equals(curr2));
         assertEquals(true, curr1.equals(curr3));
+        assertEquals(false, curr1.equals(curr4));
+        assertEquals(false, curr1.equals(curr5));
+        assertEquals(false, curr1.equals(null));
+        assertEquals(false, curr1.equals(123));
+        assertEquals(false, curr1.equals("hello"));
+        assertEquals(false, curr1.equals(new Exception()));
+
     }
 
 }
