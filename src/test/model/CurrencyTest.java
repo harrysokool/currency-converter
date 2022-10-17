@@ -38,12 +38,10 @@ public class CurrencyTest {
     void testEqual(){
         Currency curr1 = new Currency("hkd", 0.125);
         Currency curr2 = new Currency("cad", 0.727);
-        assertEquals(false, testCurrency.equals(curr1));
-        assertEquals(true, testCurrency.equals(curr2));
-        assertEquals(false, testCurrency.equals(null));
-        assertEquals(false, testCurrency.equals(new String()));
-        assertEquals(false, testCurrency.equals("hello"));
-        assertEquals(false, testCurrency.equals(123));
+        Currency curr3 = new Currency("hkd", 0.125);
+        assertEquals(true, curr1.equals(curr1));
+        assertEquals(false, curr1.equals(curr2));
+        assertEquals(true, curr1.equals(curr3));
     }
 
 }

@@ -63,7 +63,7 @@ public class Currency {
             return false;
         }
         Currency currency = (Currency) o;
-        return currencyName.equals(currency.currencyName)
-                && rateToOneUSD == currency.rateToOneUSD;
+        return currencyName.equals(currency.getCurrencyName())
+                && rateToOneUSD == currency.getRateToOneUSD();
     }
 }
