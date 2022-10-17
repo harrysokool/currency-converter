@@ -34,4 +34,15 @@ public class CurrencyTest {
                 + "rateToOneUSD = 0.727"));
     }
 
+    @Test
+    void testEqual(){
+        Currency curr1 = new Currency("hkd", 0.125);
+        Currency curr2 = new Currency("cad", 0.727);
+        assertEquals(false, testCurrency.equals(curr1));
+        assertEquals(true, testCurrency.equals(curr2));
+        assertEquals(false, testCurrency.equals(null));
+        assertEquals(false, testCurrency.equals(new String()));
+
+    }
+
 }

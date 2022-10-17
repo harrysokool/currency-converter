@@ -47,6 +47,13 @@ public class Currency {
         return "currencyName = " + currencyName + ", rateToOneUSD = " + rateToOneUSD + "\n";
     }
 
+
+    /*
+     * REQUIRES: a object of currency
+     * EFFECTS: compares both currency objects, if they have the same field then return true,
+     *          if the object o is null or not the same class then return false,
+     *          compares the field of both objects.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
