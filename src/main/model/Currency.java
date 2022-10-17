@@ -44,9 +44,9 @@ public class Currency {
      */
     @Override
     public String toString() {
-        return "currencyName = " + currencyName + ", rateToOneUSD = " + rateToOneUSD + "\n";
+        return "currencyName = " + currencyName
+                + ", rateToOneUSD = " + rateToOneUSD + "\n";
     }
-
 
     /*
      * REQUIRES: a object of currency

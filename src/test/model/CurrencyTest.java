@@ -42,7 +42,8 @@ public class CurrencyTest {
         assertEquals(true, testCurrency.equals(curr2));
         assertEquals(false, testCurrency.equals(null));
         assertEquals(false, testCurrency.equals(new String()));
-
+        assertEquals(false, testCurrency.equals("hello"));
+        assertEquals(false, testCurrency.equals(123));
     }
 
 }
