@@ -38,6 +38,10 @@ public class CurrencyList implements Writable {
         return currency2;
     }
 
+    public List<Currency> getCurrencies() {
+        return currencies;
+    }
+
     /*
      * REQUIRES: a valid and initialize currency
      * MODIFIES: this
@@ -151,7 +155,7 @@ public class CurrencyList implements Writable {
         return json;
     }
 
-    // EFFECTS: returns currencies in currencylist as a JSON array
+    // EFFECTS: returns currencies in currency-list as a JSON array
     private JSONArray currenciesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Currency curr : currencies) {
