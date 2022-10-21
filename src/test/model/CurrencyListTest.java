@@ -30,10 +30,10 @@ public class CurrencyListTest {
     @Test
     void testAddCurrency2(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(true,  testCurrencies.addCurrency(new Currency("CAD", 0.727)));
+        assertTrue(testCurrencies.addCurrency(new Currency("CAD", 0.727)));
         assertEquals(1, testCurrencies.size());
-        assertEquals(true,  testCurrencies.addCurrency(new Currency("HKD", 0.125)));
-        assertEquals(false,  testCurrencies.addCurrency(new Currency("CAD", 0.727)));
+        assertTrue(testCurrencies.addCurrency(new Currency("HKD", 0.125)));
+        assertFalse(testCurrencies.addCurrency(new Currency("CAD", 0.727)));
         assertEquals(2, testCurrencies.size());
         assertEquals("CAD", testCurrencies.get(0).getCurrencyName());
         assertEquals("HKD", testCurrencies.get(1).getCurrencyName());
@@ -43,9 +43,9 @@ public class CurrencyListTest {
     @Test
     void testAddCurrency3(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(true,  testCurrencies.addCurrency(new Currency("CAD", 0.727)));
+        assertTrue(testCurrencies.addCurrency(new Currency("CAD", 0.727)));
         assertEquals(1, testCurrencies.size());
-        assertEquals(false,  testCurrencies.addCurrency(new Currency("CAD", 0.727)));
+        assertFalse(testCurrencies.addCurrency(new Currency("CAD", 0.727)));
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         assertEquals(2, testCurrencies.size());
@@ -56,7 +56,7 @@ public class CurrencyListTest {
     @Test
     void testAddCurrency4(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(false,  testCurrencies.addCurrency(null));
+        assertFalse(testCurrencies.addCurrency(null));
         assertEquals(0, testCurrencies.size());
     }
 
@@ -64,7 +64,7 @@ public class CurrencyListTest {
     @Test
     void testRemoveCurrency1(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(false, testCurrencies.removeCurrency("cad"));
+        assertFalse(testCurrencies.removeCurrency("cad"));
         assertEquals(0, testCurrencies.size());
     }
 
@@ -74,7 +74,7 @@ public class CurrencyListTest {
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
         assertEquals(1, testCurrencies.size());
         assertEquals("CAD", testCurrencies.get(0).getCurrencyName());
-        assertEquals(true, testCurrencies.removeCurrency("cad"));
+        assertTrue(testCurrencies.removeCurrency("cad"));
         assertEquals(0, testCurrencies.size());
     }
 
@@ -84,7 +84,7 @@ public class CurrencyListTest {
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
         assertEquals(1, testCurrencies.size());
         assertEquals("CAD", testCurrencies.get(0).getCurrencyName());
-        assertEquals(false, testCurrencies.removeCurrency("hkd"));
+        assertFalse(testCurrencies.removeCurrency("hkd"));
         assertEquals(1, testCurrencies.size());
     }
 
@@ -108,8 +108,8 @@ public class CurrencyListTest {
     @Test
     void testOldCurrency1(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(false, testCurrencies.oldCurrency("HKD"));
-        assertEquals(null, testCurrencies.getCurrency1());
+        assertFalse(testCurrencies.oldCurrency("HKD"));
+        assertNull(testCurrencies.getCurrency1());
     }
 
     // currencies size > 0 and found
@@ -120,7 +120,7 @@ public class CurrencyListTest {
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         assertEquals(2, testCurrencies.size());
-        assertEquals(true, testCurrencies.oldCurrency("HKD"));
+        assertTrue(testCurrencies.oldCurrency("HKD"));
         assertEquals("HKD", testCurrencies.getCurrency1().getCurrencyName());
     }
 
@@ -129,16 +129,16 @@ public class CurrencyListTest {
     void testOldCurrency3(){
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         assertEquals(1, testCurrencies.size());
-        assertEquals(false, testCurrencies.oldCurrency("CAD"));
-        assertEquals(null, testCurrencies.getCurrency1());
+        assertFalse(testCurrencies.oldCurrency("CAD"));
+        assertNull(testCurrencies.getCurrency1());
     }
 
     // currencies size = 0
     @Test
     void testNewCurrency1(){
         assertEquals(0, testCurrencies.size());
-        assertEquals(false, testCurrencies.newCurrency("CAD"));
-        assertEquals(null, testCurrencies.getCurrency2());
+        assertFalse(testCurrencies.newCurrency("CAD"));
+        assertNull(testCurrencies.getCurrency2());
     }
 
     // currencies size > 0 and found
@@ -148,7 +148,7 @@ public class CurrencyListTest {
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         assertEquals(2, testCurrencies.size());
-        assertEquals(true, testCurrencies.newCurrency("CAD"));
+        assertTrue(testCurrencies.newCurrency("CAD"));
         assertEquals("CAD", testCurrencies.getCurrency2().getCurrencyName());
     }
 
@@ -158,8 +158,8 @@ public class CurrencyListTest {
         testCurrencies.addCurrency(new Currency("CAD", 0.125));
         testCurrencies.addCurrency(new Currency("CAD", 0.125));
         assertEquals(1, testCurrencies.size());
-        assertEquals(false, testCurrencies.newCurrency("hkd"));
-        assertEquals(null, testCurrencies.getCurrency1());
+        assertFalse(testCurrencies.newCurrency("hkd"));
+        assertNull(testCurrencies.getCurrency1());
     }
 
     // both are true
@@ -167,9 +167,9 @@ public class CurrencyListTest {
     void testContainsBothCurrencies1(){
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
-        assertEquals(true, testCurrencies.oldCurrency("HKD"));
-        assertEquals(true, testCurrencies.newCurrency("CAD"));
-        assertEquals(true, testCurrencies.containsBothCurrencies("hkd", "cad"));
+        assertTrue(testCurrencies.oldCurrency("HKD"));
+        assertTrue(testCurrencies.newCurrency("CAD"));
+        assertTrue(testCurrencies.containsBothCurrencies("hkd", "cad"));
     }
 
     // only one is true
@@ -177,9 +177,9 @@ public class CurrencyListTest {
     void testContainsBothCurrencies2(){
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         testCurrencies.addCurrency(new Currency("JPY", 0.727));
-        assertEquals(true, testCurrencies.oldCurrency("HKD"));
-        assertEquals(false, testCurrencies.newCurrency("CAD"));
-        assertEquals(false, testCurrencies.containsBothCurrencies("hkd", "cad"));
+        assertTrue(testCurrencies.oldCurrency("HKD"));
+        assertFalse(testCurrencies.newCurrency("CAD"));
+        assertFalse(testCurrencies.containsBothCurrencies("hkd", "cad"));
     }
 
     // both are false
@@ -187,9 +187,9 @@ public class CurrencyListTest {
     void testContainsBothCurrencies3(){
         testCurrencies.addCurrency(new Currency("USD", 0.125));
         testCurrencies.addCurrency(new Currency("JPY", 0.727));
-        assertEquals(false, testCurrencies.oldCurrency("HKD"));
-        assertEquals(false, testCurrencies.newCurrency("CAD"));
-        assertEquals(false, testCurrencies.containsBothCurrencies("hkd", "cad"));
+        assertFalse(testCurrencies.oldCurrency("HKD"));
+        assertFalse(testCurrencies.newCurrency("CAD"));
+        assertFalse(testCurrencies.containsBothCurrencies("hkd", "cad"));
     }
 
     // when both currencies are in the testcurrencies and amount is 0, 1 and 100
@@ -197,8 +197,8 @@ public class CurrencyListTest {
     void testConvertCurrency(){
         testCurrencies.addCurrency(new Currency("HKD", 0.125));
         testCurrencies.addCurrency(new Currency("CAD", 0.727));
-        assertEquals(true, testCurrencies.oldCurrency("HKD"));
-        assertEquals(true, testCurrencies.newCurrency("CAD"));
+        assertTrue(testCurrencies.oldCurrency("HKD"));
+        assertTrue(testCurrencies.newCurrency("CAD"));
         assertEquals(0, testCurrencies.convertCurrency("cad", "hkd", 0));
         assertEquals(5.82, testCurrencies.convertCurrency("cad", "hkd", 1));
         assertEquals(581.6, testCurrencies.convertCurrency("cad", "hkd", 100));
