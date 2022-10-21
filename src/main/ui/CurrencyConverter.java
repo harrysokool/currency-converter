@@ -2,16 +2,27 @@ package ui;
 
 import model.Currency;
 import model.CurrencyList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 
 public class CurrencyConverter {
+    private static final String JSON_STORE = "./data/CurrencyList.json";
     private Scanner input;
     private CurrencyList currencyList;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-
-    // EFFECTS: runs the currency converter application
-    public CurrencyConverter() {
+    // EFFECTS: constructs currencyList and runs application
+    public CurrencyConverter() throws FileNotFoundException {
+        input = new Scanner(System.in);
+        currencyList = new CurrencyList();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runCurrencyConverter();
     }
 
@@ -20,7 +31,7 @@ public class CurrencyConverter {
     // EFFECTS: processes user input
     public void runCurrencyConverter() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -54,6 +65,8 @@ public class CurrencyConverter {
         System.out.println("\tr -> remove currency");
         System.out.println("\tc -> convert currency");
         System.out.println("\tl -> list currency");
+        System.out.println("\ts -> save currencies to file");
+        System.out.println("\tj -> load currencies from file");
         System.out.println("\tq -> quit");
     }
 
@@ -61,16 +74,28 @@ public class CurrencyConverter {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAddCurrency();
-        } else if (command.equals("r")) {
-            doRemoveCurrency();
-        } else if (command.equals("c")) {
-            doConvertCurrency();
-        } else if (command.equals("l")) {
-            doListCurrency();
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "a":
+                doAddCurrency();
+                break;
+            case "r":
+                doRemoveCurrency();
+                break;
+            case "c":
+                doConvertCurrency();
+                break;
+            case "l":
+                doListCurrency();
+                break;
+            case "s":
+                saveCurrencies();
+                break;
+            case "j":
+                loadCurrencies();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
@@ -109,7 +134,17 @@ public class CurrencyConverter {
         String currency2 = input.next();
         System.out.println("Type in the amount to convert: ");
         double amount = input.nextDouble();
-        System.out.println(currency2.toUpperCase() + ": " + currencyList.convertCurrency(currency1, currency2, amount));
+        if (currencyList.oldCurrency(currency1)) {
+            if (currencyList.newCurrency(currency2)) {
+                System.out.println(currency2.toUpperCase() + ": "
+                        + currencyList.convertCurrency(currency1, currency2, amount));
+            } else {
+                System.out.println(currency2.toUpperCase() + " is not in the list!!!");
+            }
+        } else {
+            System.out.println(currency1.toUpperCase() + " is not in the list!!!");
+        }
+
     }
 
     // EFFECTS: list the currency
@@ -117,4 +152,26 @@ public class CurrencyConverter {
         System.out.println(currencyList.listCurrencies());
     }
 
+    // EFFECTS: saves the workroom to file
+    private void saveCurrencies() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(currencyList);
+            jsonWriter.close();
+            System.out.println("Saved currencies to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadCurrencies() {
+        try {
+            currencyList = jsonReader.read();
+            System.out.println("Loaded currencies from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
 }

@@ -1,7 +1,10 @@
 package model;
 // Represent the name of a currency and the rate to USD of the currency.
 
-public class Currency {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Currency implements Writable {
     //fields
     private String currencyName; // name of the currency
     private double rateToOneUSD; // rate of the currency to 1 USD. e.g.) 1 USD = rate * 8 HKD
@@ -65,5 +68,13 @@ public class Currency {
         Currency currency = (Currency) o;
         return currencyName.equals(currency.getCurrencyName())
                 && rateToOneUSD == currency.getRateToOneUSD();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("currency", currencyName);
+        json.put("rate", rateToOneUSD);
+        return json;
     }
 }

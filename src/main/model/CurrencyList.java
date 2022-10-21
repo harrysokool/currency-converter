@@ -1,10 +1,14 @@
 package model;
 // A list of currency, and can be added or removed.
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrencyList {
+public class CurrencyList implements Writable {
     // fields
     private List<Currency> currencies; // list of currencies
     private Currency currency1; // to change this currency
@@ -140,4 +144,19 @@ public class CurrencyList {
         }
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("currencies", currenciesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns currencies in currencylist as a JSON array
+    private JSONArray currenciesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Currency curr : currencies) {
+            jsonArray.put(curr.toJson());
+        }
+        return jsonArray;
+    }
 }
