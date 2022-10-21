@@ -1,6 +1,5 @@
 package ui;
 
-
 import model.Currency;
 import model.CurrencyList;
 import java.util.Scanner;
@@ -11,10 +10,14 @@ public class CurrencyConverter {
     private CurrencyList currencyList;
 
 
+    // EFFECTS: runs the currency converter application
     public CurrencyConverter() {
         runCurrencyConverter();
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: processes user input
     public void runCurrencyConverter() {
         boolean keepGoing = true;
         String command = null;
@@ -54,6 +57,9 @@ public class CurrencyConverter {
         System.out.println("\tq -> quit");
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
             doAddCurrency();
@@ -68,6 +74,10 @@ public class CurrencyConverter {
         }
     }
 
+      /*
+        MODIFIES: this
+        EFFECTS: add currency to the list.
+      */
     private void doAddCurrency() {
         System.out.println("Type in the name of currency (e.g. HKD, CAD, USD): ");
         String name = input.next();
@@ -77,6 +87,10 @@ public class CurrencyConverter {
         currencyList.addCurrency(currency);
     }
 
+        /*
+        MODIFIES: this
+        EFFECTS: remove currency to the list.
+         */
     private void doRemoveCurrency() {
         System.out.println("Type in the name of currency (e.g. HKD, CAD, USD): ");
         String name = input.next();
@@ -87,6 +101,7 @@ public class CurrencyConverter {
         }
     }
 
+    //EFFECTS: covert currency
     private void doConvertCurrency() {
         System.out.println("Type in the name of currency to convert from (e.g. HKD, CAD, USD): ");
         String currency1 = input.next();
@@ -97,6 +112,7 @@ public class CurrencyConverter {
         System.out.println(currency2.toUpperCase() + ": " + currencyList.convertCurrency(currency1, currency2, amount));
     }
 
+    // EFFECTS: list the currency
     private void doListCurrency() {
         System.out.println(currencyList.listCurrencies());
     }

@@ -24,5 +24,7 @@ health.
 - As a user, I want to be able to remove a currency from currency list.
 - As a user, I want to be able to enter the amount of a currency and 
   transfer it into another currency from the currency list.
+- As a user, I want to be able to save my currency list to file
+- As a user, I want to be able to be able to load my currency list from file 
 
 
