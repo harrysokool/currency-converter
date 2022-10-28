@@ -10,6 +10,7 @@ import model.Currency;
 import model.CurrencyList;
 import org.json.*;
 
+// citation: JsonSerializationDemo
 // Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
     private String source;
