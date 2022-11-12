@@ -27,4 +27,10 @@ health.
 - As a user, I want to be able to save my currency list to file
 - As a user, I want to be able to be able to load my currency list from file 
 
+# Instructions for Grader
 
+- You can generate the first required event related to adding currencies to a currency list by...
+- You can generate the second required event related to adding currencies to a currency list by...
+- You can locate my visual component by...
+- You can save the state of my application by clicking the save button.
+- You can reload the state of my application by clicking the load button.
