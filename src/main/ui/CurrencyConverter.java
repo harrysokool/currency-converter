@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 
 public class CurrencyConverter {
-    private static final String JSON_STORE = "./data/CurrencyList.json";
+    static final String JSON_STORE = "./data/CurrencyList.json";
     private Scanner input;
     private CurrencyList currencyList;
     private JsonWriter jsonWriter;
