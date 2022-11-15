@@ -18,8 +18,8 @@ public class Panel extends JPanel {
 
     // json
     static final String JSON_STORE = "./data/CurrencyListGUI.json";
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
 
     // currency list
     CurrencyList cl;
@@ -28,12 +28,6 @@ public class Panel extends JPanel {
     JTable table;
     DefaultTableModel model;
 
-    // buttons
-    private JButton removeButton;
-    private JButton saveButton;
-    private JButton loadButton;
-    private JButton addButton;
-
     // names for the buttons
     private static final String addString = "Add";
     private static final String removeString = "Remove";
@@ -41,9 +35,9 @@ public class Panel extends JPanel {
     private static final String loadString = "Load";
 
     // text field
-    private JTextField addCurrencyName;
-    private JTextField currencyRate;
-    private JTextField removeCurrencyName;
+    private final JTextField addCurrencyName;
+    private final JTextField currencyRate;
+    private final JTextField removeCurrencyName;
 
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     public Panel() {
@@ -83,7 +77,7 @@ public class Panel extends JPanel {
         removeCurrencyName.setBounds(157, 130, 70, 20);
 
         // add button
-        addButton = new JButton(addString);
+        JButton addButton = new JButton(addString);
         addButton.setBounds(160, 20, 70, 20);
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -104,7 +98,8 @@ public class Panel extends JPanel {
         });
 
         // remove button
-        removeButton = new JButton(removeString);
+        // buttons
+        JButton removeButton = new JButton(removeString);
         removeButton.setBounds(160, 100, 70, 20);
         removeButton.addActionListener(new ActionListener() {
             @Override
@@ -126,7 +121,7 @@ public class Panel extends JPanel {
         });
 
         // save button
-        saveButton = new JButton(saveString);
+        JButton saveButton = new JButton(saveString);
         saveButton.setBounds(160, 160, 70, 20);
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -143,7 +138,7 @@ public class Panel extends JPanel {
         });
 
         // load button
-        loadButton = new JButton(loadString);
+        JButton loadButton = new JButton(loadString);
         loadButton.setBounds(160, 190, 70, 20);
         loadButton.addActionListener(new ActionListener() {
             @Override
