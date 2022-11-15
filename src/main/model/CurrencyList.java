@@ -42,14 +42,14 @@ public class CurrencyList implements Writable {
         return currencies;
     }
 
-    public boolean contains(String currencyName) {
-        for (Currency currency: currencies) {
-            if (currency.getCurrencyName().equals(currencyName)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean contains(String currencyName) {
+//        for (Currency currency: currencies) {
+//            if (currency.getCurrencyName().equals(currencyName)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     /*
      * REQUIRES: a valid and initialize currency
