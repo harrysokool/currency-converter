@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// panel for currency converter
 public class Panel extends JPanel {
     JPanel panel;
 
@@ -27,28 +28,59 @@ public class Panel extends JPanel {
     // table
     JTable table;
     DefaultTableModel model;
+    Object[] column;
+    Object[] row;
 
     // names for the buttons
+    private JButton addButton;
+    private JButton removeButton;
+    private JButton saveButton;
+    private JButton loadButton;
     private static final String addString = "Add";
     private static final String removeString = "Remove";
     private static final String saveString = "Save";
     private static final String loadString = "Load";
 
     // text field
-    private final JTextField addCurrencyName;
-    private final JTextField currencyRate;
-    private final JTextField removeCurrencyName;
+    private JTextField addCurrencyName;
+    private JTextField currencyRate;
+    private JTextField removeCurrencyName;
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    //     // EFFECTS: construct JPanel and setup for the panel, and adding the components
     public Panel() {
 
         cl = new CurrencyList();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
+        this.makeTable(); // table
+        this.makeTextField(); // text fields
+        this.makeAddButtons(); // add button
+        this.makeRemoveButton(); // remove button
+        this.makeSaveButton(); // save button
+        this.makeLoadButton(); // load button
+
+        // panel setting
+        this.setBounds(0,0,300,300);
+        this.setLayout(null);
+
+        // adding component
+        this.add(addCurrencyName);
+        this.add(currencyRate);
+        this.add(removeCurrencyName);
+        this.add(addButton);
+        this.add(removeButton);
+        this.add(saveButton);
+        this.add(loadButton);
+        this.add(table);
+
+    }
+
+    // EFFECTS: construct table and setup for the table
+    private void makeTable() {
         // table
-        Object[] column = {"Currency", "Rate"};
-        Object[] row = new Object[2];
+        column = new Object[]{"Currency", "Rate"};
+        row = new Object[2];
         table = new JTable();
         table.setBounds(10,20,140,200);
         table.setFillsViewportHeight(true);
@@ -59,8 +91,10 @@ public class Panel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         this.add(scrollPane);
         model.addRow(column);
+    }
 
-
+    // EFFECTS: construct text field and setup for the text field
+    private void makeTextField() {
         //text field to add currency name
         addCurrencyName = new JTextField();
         addCurrencyName.setText("Name");
@@ -75,9 +109,12 @@ public class Panel extends JPanel {
         removeCurrencyName = new JTextField();
         removeCurrencyName.setText("Name");
         removeCurrencyName.setBounds(157, 130, 70, 20);
+    }
 
+    // EFFECTS: construct add button and setup for the button
+    private void makeAddButtons() {
         // add button
-        JButton addButton = new JButton(addString);
+        addButton = new JButton(addString);
         addButton.setBounds(160, 20, 70, 20);
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -96,10 +133,11 @@ public class Panel extends JPanel {
                 }
             }
         });
+    }
 
-        // remove button
-        // buttons
-        JButton removeButton = new JButton(removeString);
+    // EFFECTS: construct remove button and setup for the button
+    private void makeRemoveButton() {
+        removeButton = new JButton(removeString);
         removeButton.setBounds(160, 100, 70, 20);
         removeButton.addActionListener(new ActionListener() {
             @Override
@@ -119,9 +157,11 @@ public class Panel extends JPanel {
                 }
             }
         });
+    }
 
-        // save button
-        JButton saveButton = new JButton(saveString);
+    // EFFECTS: construct save button and setup for the button
+    private void makeSaveButton() {
+        saveButton = new JButton(saveString);
         saveButton.setBounds(160, 160, 70, 20);
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -136,9 +176,11 @@ public class Panel extends JPanel {
                 }
             }
         });
+    }
 
-        // load button
-        JButton loadButton = new JButton(loadString);
+    // EFFECTS: construct load button and setup for the button
+    private void makeLoadButton() {
+        loadButton = new JButton(loadString);
         loadButton.setBounds(160, 190, 70, 20);
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -158,21 +200,6 @@ public class Panel extends JPanel {
                 }
             }
         });
-
-        // panel setting
-        this.setBounds(0,0,300,300);
-        this.setLayout(null);
-
-        // adding component
-        this.add(addCurrencyName);
-        this.add(currencyRate);
-        this.add(removeCurrencyName);
-        this.add(addButton);
-        this.add(removeButton);
-        this.add(saveButton);
-        this.add(loadButton);
-        this.add(table);
-
     }
 
 }

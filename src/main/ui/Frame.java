@@ -3,9 +3,11 @@ package ui;
 import javax.swing.*;
 import static java.lang.Thread.sleep;
 
+//frame for the currency converter
 public class Frame extends JFrame {
 
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    // EFFECTS: construct the frame set up the frame, a welcome image when open application
+    //          then set the panel.
     public Frame() {
 
         ImageIcon image = new ImageIcon("data/welcome.png");
@@ -34,7 +36,7 @@ public class Frame extends JFrame {
         this.setContentPane(newContentPane);
     }
 
-    // start currency converter
+    // EFFECTS: start currency converter
     public static void main(String[] args) {
         new Frame();
     }
