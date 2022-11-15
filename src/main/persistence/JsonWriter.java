@@ -4,6 +4,7 @@ import model.CurrencyList;
 import org.json.JSONObject;
 
 
+import javax.swing.*;
 import java.io.*;
 
 // citation: JsonSerializationDemo

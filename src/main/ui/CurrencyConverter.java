@@ -152,7 +152,7 @@ public class CurrencyConverter {
         System.out.println(currencyList.listCurrencies());
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the currencies to file
     private void saveCurrencies() {
         try {
             jsonWriter.open();
@@ -165,7 +165,7 @@ public class CurrencyConverter {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads currencies from file
     private void loadCurrencies() {
         try {
             currencyList = jsonReader.read();
