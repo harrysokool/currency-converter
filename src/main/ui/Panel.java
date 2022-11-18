@@ -16,6 +16,7 @@ import java.io.IOException;
 // panel for currency converter
 public class Panel extends JPanel {
     JPanel panel;
+    ImageIcon icon = new ImageIcon("data/cash.png");
 
     // json
     static final String JSON_STORE = "./data/CurrencyListGUI.json";
@@ -133,7 +134,13 @@ public class Panel extends JPanel {
         table.setBounds(10,20,140,210);
         table.setFillsViewportHeight(true);
         table.setBackground(Color.LIGHT_GRAY);
-        model = new DefaultTableModel();
+        model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
         model.setColumnIdentifiers(column);
         table.setModel(model);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -166,6 +173,7 @@ public class Panel extends JPanel {
     }
 
     // EFFECTS: construct add button and setup for the button
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeAddButtons() {
         // add button
         addButton = new JButton(addString);
@@ -174,16 +182,22 @@ public class Panel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    row[0] = addCurrencyName.getText().toUpperCase();
-                    row[1] = currencyRate.getText();
-                    String name = addCurrencyName.getText().toUpperCase();
-                    double rate = Double.parseDouble(currencyRate.getText());
-                    cl.addCurrency(new Currency(name, rate));
-                    model.addRow(row);
-                    addCurrencyName.setText("");
-                    currencyRate.setText("");
+                    if (!cl.listCurrencies().contains(addCurrencyName.getText().toUpperCase())) {
+                        row[0] = addCurrencyName.getText().toUpperCase();
+                        row[1] = currencyRate.getText();
+                        String name = addCurrencyName.getText().toUpperCase();
+                        double rate = Double.parseDouble(currencyRate.getText());
+                        cl.addCurrency(new Currency(name, rate));
+                        model.addRow(row);
+                        addCurrencyName.setText("");
+                        currencyRate.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(panel,"Please try again.", "SELECT",
+                                JOptionPane.INFORMATION_MESSAGE, icon);
+                    }
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(panel, "Please try again.");
+                    JOptionPane.showMessageDialog(panel, "Please try again.", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 }
             }
         });
@@ -205,9 +219,12 @@ public class Panel extends JPanel {
                         row[1] = currency.getRateToOneUSD();
                         model.addRow(row);
                     }
-                    JOptionPane.showMessageDialog(panel, "Removed.");
+                    JOptionPane.showMessageDialog(panel, "Removed.", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
+                    removeCurrencyName.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(panel, "Currency not found in the list.");
+                    JOptionPane.showMessageDialog(panel, "Currency not found in the list.", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 }
             }
         });
@@ -224,9 +241,11 @@ public class Panel extends JPanel {
                     jsonWriter.open();
                     jsonWriter.write(cl);
                     jsonWriter.close();
-                    JOptionPane.showMessageDialog(panel, "Successfully Stored!!!");
+                    JOptionPane.showMessageDialog(panel, "Successfully Stored!", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 } catch (FileNotFoundException exception) {
-                    JOptionPane.showMessageDialog(panel, "Fail to Store!!!");
+                    JOptionPane.showMessageDialog(panel, "Fail to Store!", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 }
             }
         });
@@ -248,15 +267,18 @@ public class Panel extends JPanel {
                         row[1] = currency.getRateToOneUSD();
                         model.addRow(row);
                     }
-                    JOptionPane.showMessageDialog(panel, "Loaded Successfully!!!");
+                    JOptionPane.showMessageDialog(panel, "Loaded Successfully!!!", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 } catch (IOException exception) {
-                    JOptionPane.showMessageDialog(panel, "Fail To Load!!!");
+                    JOptionPane.showMessageDialog(panel, "Fail To Load!!!", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 }
             }
         });
     }
 
     // EFFECTS: construct convert button and setup for the button
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeConvertButton() {
         convertButton = new JButton("Convert");
         convertButton.setBounds(270, 165, 80, 20);
@@ -270,13 +292,24 @@ public class Panel extends JPanel {
                     if (cl.oldCurrency(c1)) {
                         if (cl.newCurrency(c2)) {
                             JOptionPane.showMessageDialog(panel,c2.toUpperCase() + ": "
-                                    + cl.convertCurrency(c1, c2, a));
+                                    + cl.convertCurrency(c1, c2, a), "SELECT",
+                                    JOptionPane.INFORMATION_MESSAGE, icon);
+                            currency1.setText("");
+                            currency2.setText("");
+                            amount.setText("");
                         } else {
-                            JOptionPane.showMessageDialog(panel, "Please Try Again!!!");
+                            JOptionPane.showMessageDialog(panel, c2.toUpperCase()
+                                    + " not in the list, please try again!", "SELECT",
+                                    JOptionPane.INFORMATION_MESSAGE, icon);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(panel, c1.toUpperCase()
+                                + " not in the list, please try again!", "SELECT",
+                                JOptionPane.INFORMATION_MESSAGE, icon);
                     }
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(panel, "Please Try Again!!!");
+                    JOptionPane.showMessageDialog(panel, "Please try again!", "SELECT",
+                            JOptionPane.INFORMATION_MESSAGE, icon);
                 }
             }
         });

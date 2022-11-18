@@ -66,8 +66,7 @@ public class Currency implements Writable {
             return false;
         }
         Currency currency = (Currency) o;
-        return currencyName.equals(currency.getCurrencyName())
-                && rateToOneUSD == currency.getRateToOneUSD();
+        return currencyName.equals(currency.getCurrencyName());
     }
 
     @Override
