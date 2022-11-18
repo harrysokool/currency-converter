@@ -204,6 +204,7 @@ public class Panel extends JPanel {
         });
     }
 
+    // function of add button
     private void addButtonFunction() {
         if (!cl.listCurrencies().contains(addCurrencyName.getText().toUpperCase())) {
             row[0] = addCurrencyName.getText().toUpperCase();
