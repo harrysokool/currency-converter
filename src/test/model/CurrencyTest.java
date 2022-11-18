@@ -41,6 +41,10 @@ public class CurrencyTest {
         Currency curr3 = new Currency("hkd", 0.125);
         Currency curr4 = new Currency("hkd", 0.700);
         Currency curr5 = new Currency("cad", 0.125);
+        Currency curr6 = null;
+        String curr7 = null;
+        assertFalse(curr1.equals(curr7));
+        assertFalse(curr1.equals(curr6));
         assertTrue(curr1.equals(curr1));
         assertFalse(curr1.equals(curr2));
         assertTrue(curr1.equals(curr3));
