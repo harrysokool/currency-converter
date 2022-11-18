@@ -13,13 +13,13 @@ public class Frame extends JFrame {
         ImageIcon image = new ImageIcon("data/welcome.png");
         JLabel label = new JLabel();
         label.setIcon(image);
-        label.setBounds(0,0,300,250);
+        label.setBounds(25,0,400,250);
 
         // set up frame.
         this.setTitle("Currency Converter");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setSize(300,300);
+        this.setSize(370,270);
         this.setLayout(null);
         this.setVisible(true);
         this.add(label);

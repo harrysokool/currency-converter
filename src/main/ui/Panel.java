@@ -36,6 +36,7 @@ public class Panel extends JPanel {
     private JButton removeButton;
     private JButton saveButton;
     private JButton loadButton;
+    private JButton convertButton;
     private static final String addString = "Add";
     private static final String removeString = "Remove";
     private static final String saveString = "Save";
@@ -45,6 +46,20 @@ public class Panel extends JPanel {
     private JTextField addCurrencyName;
     private JTextField currencyRate;
     private JTextField removeCurrencyName;
+    private JTextField currency1;
+    private JTextField currency2;
+    private JTextField amount;
+
+    // label
+    private JLabel addName;
+    private JLabel addRate;
+    private JLabel removeName;
+    private JLabel currency1name;
+    private JLabel currency2name;
+    private JLabel amountToConvert;
+
+
+
 
     //     // EFFECTS: construct JPanel and setup for the panel, and adding the components
     public Panel() {
@@ -53,18 +68,25 @@ public class Panel extends JPanel {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
+        this.makeLabel();
         this.makeTable(); // table
         this.makeTextField(); // text fields
         this.makeAddButtons(); // add button
         this.makeRemoveButton(); // remove button
         this.makeSaveButton(); // save button
         this.makeLoadButton(); // load button
+        this.makeConvertButton(); // convert button
 
         // panel setting
         this.setBounds(0,0,300,300);
         this.setLayout(null);
 
         // adding component
+        addComponent();
+
+    }
+
+    private void addComponent() {
         this.add(addCurrencyName);
         this.add(currencyRate);
         this.add(removeCurrencyName);
@@ -73,7 +95,31 @@ public class Panel extends JPanel {
         this.add(saveButton);
         this.add(loadButton);
         this.add(table);
+        this.add(addName);
+        this.add(addRate);
+        this.add(removeName);
+        this.add(currency1name);
+        this.add(currency2name);
+        this.add(amountToConvert);
+        this.add(currency1);
+        this.add(currency2);
+        this.add(amount);
+        this.add(convertButton);
+    }
 
+    private void makeLabel() {
+        addName = new JLabel("Currency:");
+        addName.setBounds(160, 45, 70, 20);
+        addRate = new JLabel("Rate to 1 USD:");
+        addRate.setBounds(160, 85, 100, 20);
+        removeName = new JLabel("Currency:");
+        removeName.setBounds(160, 155, 70, 20);
+        currency1name = new JLabel("Currency 1:");
+        currency1name.setBounds(275, 45, 80, 20);
+        currency2name = new JLabel("Currency 2:");
+        currency2name.setBounds(275, 90, 80, 20);
+        amountToConvert = new JLabel("Amount:");
+        amountToConvert.setBounds(275, 135, 80, 20);
     }
 
     // EFFECTS: construct table and setup for the table
@@ -97,18 +143,24 @@ public class Panel extends JPanel {
     private void makeTextField() {
         //text field to add currency name
         addCurrencyName = new JTextField();
-        addCurrencyName.setText("Name");
-        addCurrencyName.setBounds(157, 45, 70, 20);
+        addCurrencyName.setBounds(157, 65, 70, 20);
 
         //text field for currency rate
         currencyRate = new JTextField();
-        currencyRate.setText("Rate");
-        currencyRate.setBounds(157, 70, 70, 20);
+        currencyRate.setBounds(157, 105, 70, 20);
 
-        //text field for currency rate
+        //text field to remove currency
         removeCurrencyName = new JTextField();
-        removeCurrencyName.setText("Name");
-        removeCurrencyName.setBounds(157, 130, 70, 20);
+        removeCurrencyName.setBounds(157, 175, 70, 20);
+
+        currency1 = new JTextField();
+        currency1.setBounds(270, 65, 80, 20);
+
+        currency2 = new JTextField();
+        currency2.setBounds(270, 110, 80, 20);
+
+        amount = new JTextField();
+        amount.setBounds(270, 155, 80, 20);
     }
 
     // EFFECTS: construct add button and setup for the button
@@ -138,7 +190,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct remove button and setup for the button
     private void makeRemoveButton() {
         removeButton = new JButton(removeString);
-        removeButton.setBounds(160, 100, 70, 20);
+        removeButton.setBounds(160, 135, 70, 20);
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,7 +214,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct save button and setup for the button
     private void makeSaveButton() {
         saveButton = new JButton(saveString);
-        saveButton.setBounds(160, 160, 70, 20);
+        saveButton.setBounds(160, 200, 70, 20);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -181,7 +233,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct load button and setup for the button
     private void makeLoadButton() {
         loadButton = new JButton(loadString);
-        loadButton.setBounds(160, 190, 70, 20);
+        loadButton.setBounds(275, 200, 70, 20);
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,6 +249,31 @@ public class Panel extends JPanel {
                     JOptionPane.showMessageDialog(panel, "Loaded Successfully!!!");
                 } catch (IOException exception) {
                     JOptionPane.showMessageDialog(panel, "Fail To Load!!!");
+                }
+            }
+        });
+    }
+
+    private void makeConvertButton() {
+        convertButton = new JButton("Convert");
+        convertButton.setBounds(270, 20, 80, 20);
+        convertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String c1 = currency1.getText();
+                    String c2 = currency2.getText();
+                    double a = Double.parseDouble(amount.getText());
+                    if (cl.oldCurrency(c1)) {
+                        if (cl.newCurrency(c2)) {
+                            JOptionPane.showMessageDialog(panel,c2.toUpperCase() + ": "
+                                    + cl.convertCurrency(c1, c2, a));
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "Please Try Again!!!");
+                        }
+                    }
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(panel, "Please Try Again!!!");
                 }
             }
         });
