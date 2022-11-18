@@ -44,7 +44,7 @@ public class CurrencyTest {
         assertTrue(curr1.equals(curr1));
         assertFalse(curr1.equals(curr2));
         assertTrue(curr1.equals(curr3));
-        assertFalse(curr1.equals(curr4));
+        assertTrue(curr1.equals(curr4));
         assertFalse(curr1.equals(curr5));
         assertFalse(curr1.equals(null));
         assertFalse(curr1.equals(123));
