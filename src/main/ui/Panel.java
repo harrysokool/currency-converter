@@ -79,6 +79,8 @@ public class Panel extends JPanel {
         this.addComponent();
     }
 
+    // MODIFIES: this, panel
+    // EFFECTS: make Jcomponents
     private void makeComponent() {
         this.makeLabel(); // labels
         this.makeTable(); // table
@@ -90,6 +92,7 @@ public class Panel extends JPanel {
         this.makeConvertButton(); // convert button
     }
 
+    // MODIFIES: this, panel
     // EFFECTS: add Jcomponents to panel
     private void addComponent() {
         this.add(addCurrencyName);
@@ -133,6 +136,7 @@ public class Panel extends JPanel {
         amountToConvert.setBounds(275, 110, 80, 20);
     }
 
+    // MODIFIES: this, panel
     // EFFECTS: construct table and setup for the table
     private void makeTable() {
         // table
@@ -181,7 +185,6 @@ public class Panel extends JPanel {
     }
 
     // EFFECTS: construct add button and setup for the button
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeAddButtons() {
         // add button
         addButton = new JButton(addString);
@@ -190,21 +193,7 @@ public class Panel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (!cl.listCurrencies().contains(addCurrencyName.getText().toUpperCase())) {
-                        row[0] = addCurrencyName.getText().toUpperCase();
-                        row[1] = currencyRate.getText();
-                        String name = addCurrencyName.getText().toUpperCase();
-                        double rate = Double.parseDouble(currencyRate.getText());
-                        cl.addCurrency(new Currency(name, rate));
-                        model.addRow(row);
-                        addCurrencyName.setText("");
-                        currencyRate.setText("");
-                    } else {
-                        JOptionPane.showMessageDialog(panel,"Please try again.", "SELECT",
-                                JOptionPane.INFORMATION_MESSAGE, icon);
-                        addCurrencyName.setText("");
-                        currencyRate.setText("");
-                    }
+                    addButtonFunction();
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(panel, "Please try again.", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
@@ -215,8 +204,23 @@ public class Panel extends JPanel {
         });
     }
 
+    private void addButtonFunction() {
+        if (!cl.listCurrencies().contains(addCurrencyName.getText().toUpperCase())) {
+            row[0] = addCurrencyName.getText().toUpperCase();
+            row[1] = currencyRate.getText();
+            String name = addCurrencyName.getText().toUpperCase();
+            double rate = Double.parseDouble(currencyRate.getText());
+            cl.addCurrency(new Currency(name, rate));
+            model.addRow(row);
+        } else {
+            JOptionPane.showMessageDialog(panel,"Please try again.", "SELECT",
+                    JOptionPane.INFORMATION_MESSAGE, icon);
+        }
+        addCurrencyName.setText("");
+        currencyRate.setText("");
+    }
+
     // EFFECTS: construct remove button and setup for the button
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeRemoveButton() {
         removeButton = new JButton(removeString);
         removeButton.setBounds(160, 180, 70, 20);
@@ -224,17 +228,7 @@ public class Panel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cl.removeCurrency(removeCurrencyName.getText().toUpperCase())) {
-                    cl.removeCurrency(removeCurrencyName.getText().toUpperCase());
-                    model.setRowCount(0);
-                    model.addRow(column);
-                    for (Currency currency: cl.getCurrencies()) {
-                        row[0] = currency.getCurrencyName();
-                        row[1] = currency.getRateToOneUSD();
-                        model.addRow(row);
-                    }
-                    JOptionPane.showMessageDialog(panel, "Removed.", "SELECT",
-                            JOptionPane.INFORMATION_MESSAGE, icon);
-                    removeCurrencyName.setText("");
+                    removeButtonFunction();
                 } else {
                     JOptionPane.showMessageDialog(panel, "Currency not found in the list.", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
@@ -242,6 +236,21 @@ public class Panel extends JPanel {
                 }
             }
         });
+    }
+
+    // function of remove button
+    private void removeButtonFunction() {
+        cl.removeCurrency(removeCurrencyName.getText().toUpperCase());
+        model.setRowCount(0);
+        model.addRow(column);
+        for (Currency currency: cl.getCurrencies()) {
+            row[0] = currency.getCurrencyName();
+            row[1] = currency.getRateToOneUSD();
+            model.addRow(row);
+        }
+        JOptionPane.showMessageDialog(panel, "Removed.", "SELECT",
+                JOptionPane.INFORMATION_MESSAGE, icon);
+        removeCurrencyName.setText("");
     }
 
     // EFFECTS: construct save button and setup for the button
@@ -292,7 +301,6 @@ public class Panel extends JPanel {
     }
 
     // EFFECTS: construct convert button and setup for the button
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeConvertButton() {
         convertButton = new JButton("Convert");
         convertButton.setBounds(270, 165, 80, 20);
@@ -303,39 +311,48 @@ public class Panel extends JPanel {
                     String c1 = currency1.getText();
                     String c2 = currency2.getText();
                     double a = Double.parseDouble(amount.getText());
-                    if (cl.oldCurrency(c1)) {
-                        if (cl.newCurrency(c2)) {
-                            JOptionPane.showMessageDialog(panel,c2.toUpperCase() + ": "
-                                    + cl.convertCurrency(c1, c2, a), "SELECT",
-                                    JOptionPane.INFORMATION_MESSAGE, icon);
-                            currency1.setText("");
-                            currency2.setText("");
-                            amount.setText("");
-                        } else {
-                            JOptionPane.showMessageDialog(panel, c2.toUpperCase()
-                                    + " not in the list, please try again!", "SELECT",
-                                    JOptionPane.INFORMATION_MESSAGE, icon);
-                            currency1.setText("");
-                            currency2.setText("");
-                            amount.setText("");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(panel, c1.toUpperCase()
-                                + " not in the list, please try again!", "SELECT",
-                                JOptionPane.INFORMATION_MESSAGE, icon);
-                        currency1.setText("");
-                        currency2.setText("");
-                        amount.setText("");
-                    }
+                    convertButtonFunction(c1, c2, a);
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(panel, "Please try again!", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
-                    currency1.setText("");
-                    currency2.setText("");
-                    amount.setText("");
+                    convertButtonResetTextField();
                 }
             }
         });
+    }
+
+
+    // function of convert button
+    private void convertButtonFunction(String currency1, String currency2, double am) {
+        if (cl.oldCurrency(currency1)) {
+            if (cl.newCurrency(currency2)) {
+                JOptionPane.showMessageDialog(panel,currency2.toUpperCase() + ": "
+                                + cl.convertCurrency(currency1, currency2, am), "SELECT",
+                        JOptionPane.INFORMATION_MESSAGE, icon);
+                convertButtonResetTextField();
+            } else {
+                convertButtonFail(currency2);
+            }
+        } else {
+            convertButtonFail(currency1);
+        }
+    }
+
+    // EFFECTS: pop up window saying which currency is not in the list when converting currency.
+    private void convertButtonFail(String currency) {
+        JOptionPane.showMessageDialog(panel, currency.toUpperCase()
+                        + " not in the list, please try again!", "SELECT",
+                JOptionPane.INFORMATION_MESSAGE, icon);
+        currency1.setText("");
+        currency2.setText("");
+        amount.setText("");
+    }
+
+    // EFFECTS: resets text fields
+    private void convertButtonResetTextField() {
+        currency1.setText("");
+        currency2.setText("");
+        amount.setText("");
     }
 
 }
