@@ -10,10 +10,10 @@ public class Frame extends JFrame {
     //          then set the panel.
     public Frame() {
 
-//        ImageIcon image = new ImageIcon("data/welcome.png");
-//        JLabel label = new JLabel();
-//        label.setIcon(image);
-//        label.setBounds(25,0,400,250);
+        ImageIcon image = new ImageIcon("data/welcome.png");
+        JLabel label = new JLabel();
+        label.setIcon(image);
+        label.setBounds(25,0,400,250);
 
         // set up frame.
         this.setTitle("Currency Converter");
@@ -22,13 +22,13 @@ public class Frame extends JFrame {
         this.setSize(370,270);
         this.setLayout(null);
         this.setVisible(true);
-//        this.add(label);
-//
-//        try {
-//            sleep(3000);
-//        } catch (Exception e) {
-//            System.out.println();
-//        }
+        this.add(label);
+
+        try {
+            sleep(3000);
+        } catch (Exception e) {
+            System.out.println();
+        }
 
         //Create and set up the content pane.
         JComponent newContentPane = new Panel();

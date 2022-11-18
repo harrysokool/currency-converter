@@ -58,9 +58,6 @@ public class Panel extends JPanel {
     private JLabel currency2name;
     private JLabel amountToConvert;
 
-
-
-
     //     // EFFECTS: construct JPanel and setup for the panel, and adding the components
     public Panel() {
 
@@ -82,8 +79,7 @@ public class Panel extends JPanel {
         this.setLayout(null);
 
         // adding component
-        addComponent();
-
+        this.addComponent();
     }
 
     private void addComponent() {
@@ -107,6 +103,7 @@ public class Panel extends JPanel {
         this.add(convertButton);
     }
 
+    //  // EFFECTS: add all Jcomponents
     private void makeLabel() {
         addName = new JLabel("Currency:");
         addName.setBounds(160, 20, 70, 20);
@@ -259,6 +256,7 @@ public class Panel extends JPanel {
         });
     }
 
+    // EFFECTS: construct convert button and setup for the button
     private void makeConvertButton() {
         convertButton = new JButton("Convert");
         convertButton.setBounds(270, 165, 80, 20);
