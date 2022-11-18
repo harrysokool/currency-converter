@@ -109,17 +109,22 @@ public class Panel extends JPanel {
 
     private void makeLabel() {
         addName = new JLabel("Currency:");
-        addName.setBounds(160, 45, 70, 20);
+        addName.setBounds(160, 20, 70, 20);
+
         addRate = new JLabel("Rate to 1 USD:");
-        addRate.setBounds(160, 85, 100, 20);
+        addRate.setBounds(160, 65, 100, 20);
+
         removeName = new JLabel("Currency:");
-        removeName.setBounds(160, 155, 70, 20);
+        removeName.setBounds(160, 135, 70, 20);
+
         currency1name = new JLabel("Currency 1:");
-        currency1name.setBounds(275, 45, 80, 20);
+        currency1name.setBounds(275, 20, 80, 20);
+
         currency2name = new JLabel("Currency 2:");
-        currency2name.setBounds(275, 90, 80, 20);
+        currency2name.setBounds(275, 65, 80, 20);
+
         amountToConvert = new JLabel("Amount:");
-        amountToConvert.setBounds(275, 135, 80, 20);
+        amountToConvert.setBounds(275, 110, 80, 20);
     }
 
     // EFFECTS: construct table and setup for the table
@@ -128,7 +133,7 @@ public class Panel extends JPanel {
         column = new Object[]{"Currency", "Rate"};
         row = new Object[2];
         table = new JTable();
-        table.setBounds(10,20,140,200);
+        table.setBounds(10,20,140,210);
         table.setFillsViewportHeight(true);
         table.setBackground(Color.LIGHT_GRAY);
         model = new DefaultTableModel();
@@ -143,31 +148,31 @@ public class Panel extends JPanel {
     private void makeTextField() {
         //text field to add currency name
         addCurrencyName = new JTextField();
-        addCurrencyName.setBounds(157, 65, 70, 20);
+        addCurrencyName.setBounds(157, 45, 70, 20);
 
         //text field for currency rate
         currencyRate = new JTextField();
-        currencyRate.setBounds(157, 105, 70, 20);
+        currencyRate.setBounds(157, 85, 70, 20);
 
         //text field to remove currency
         removeCurrencyName = new JTextField();
-        removeCurrencyName.setBounds(157, 175, 70, 20);
+        removeCurrencyName.setBounds(157, 155, 70, 20);
 
         currency1 = new JTextField();
-        currency1.setBounds(270, 65, 80, 20);
+        currency1.setBounds(270, 45, 80, 20);
 
         currency2 = new JTextField();
-        currency2.setBounds(270, 110, 80, 20);
+        currency2.setBounds(270, 90, 80, 20);
 
         amount = new JTextField();
-        amount.setBounds(270, 155, 80, 20);
+        amount.setBounds(270, 135, 80, 20);
     }
 
     // EFFECTS: construct add button and setup for the button
     private void makeAddButtons() {
         // add button
         addButton = new JButton(addString);
-        addButton.setBounds(160, 20, 70, 20);
+        addButton.setBounds(160, 110, 70, 20);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -190,7 +195,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct remove button and setup for the button
     private void makeRemoveButton() {
         removeButton = new JButton(removeString);
-        removeButton.setBounds(160, 135, 70, 20);
+        removeButton.setBounds(160, 180, 70, 20);
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,7 +219,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct save button and setup for the button
     private void makeSaveButton() {
         saveButton = new JButton(saveString);
-        saveButton.setBounds(160, 200, 70, 20);
+        saveButton.setBounds(160, 205, 70, 20);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -233,7 +238,7 @@ public class Panel extends JPanel {
     // EFFECTS: construct load button and setup for the button
     private void makeLoadButton() {
         loadButton = new JButton(loadString);
-        loadButton.setBounds(275, 200, 70, 20);
+        loadButton.setBounds(275, 205, 70, 20);
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -256,7 +261,7 @@ public class Panel extends JPanel {
 
     private void makeConvertButton() {
         convertButton = new JButton("Convert");
-        convertButton.setBounds(270, 20, 80, 20);
+        convertButton.setBounds(270, 165, 80, 20);
         convertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
