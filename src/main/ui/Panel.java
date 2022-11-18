@@ -16,6 +16,8 @@ import java.io.IOException;
 // panel for currency converter
 public class Panel extends JPanel {
     JPanel panel;
+
+    // JOption icon
     ImageIcon icon = new ImageIcon("data/cash.png");
 
     // json
@@ -59,21 +61,15 @@ public class Panel extends JPanel {
     private JLabel currency2name;
     private JLabel amountToConvert;
 
-    //     // EFFECTS: construct JPanel and setup for the panel, and adding the components
+    // EFFECTS: construct JPanel and setup for the panel, and adding the components
     public Panel() {
 
         cl = new CurrencyList();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
-        this.makeLabel();
-        this.makeTable(); // table
-        this.makeTextField(); // text fields
-        this.makeAddButtons(); // add button
-        this.makeRemoveButton(); // remove button
-        this.makeSaveButton(); // save button
-        this.makeLoadButton(); // load button
-        this.makeConvertButton(); // convert button
+        // make components
+        this.makeComponent();
 
         // panel setting
         this.setBounds(0,0,300,300);
@@ -83,6 +79,18 @@ public class Panel extends JPanel {
         this.addComponent();
     }
 
+    private void makeComponent() {
+        this.makeLabel(); // labels
+        this.makeTable(); // table
+        this.makeTextField(); // text fields
+        this.makeAddButtons(); // add button
+        this.makeRemoveButton(); // remove button
+        this.makeSaveButton(); // save button
+        this.makeLoadButton(); // load button
+        this.makeConvertButton(); // convert button
+    }
+
+    // EFFECTS: add Jcomponents to panel
     private void addComponent() {
         this.add(addCurrencyName);
         this.add(currencyRate);
@@ -104,7 +112,7 @@ public class Panel extends JPanel {
         this.add(convertButton);
     }
 
-    //  // EFFECTS: add all Jcomponents
+    // EFFECTS: construct labels and setup for the label
     private void makeLabel() {
         addName = new JLabel("Currency:");
         addName.setBounds(160, 20, 70, 20);
@@ -194,16 +202,21 @@ public class Panel extends JPanel {
                     } else {
                         JOptionPane.showMessageDialog(panel,"Please try again.", "SELECT",
                                 JOptionPane.INFORMATION_MESSAGE, icon);
+                        addCurrencyName.setText("");
+                        currencyRate.setText("");
                     }
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(panel, "Please try again.", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
+                    addCurrencyName.setText("");
+                    currencyRate.setText("");
                 }
             }
         });
     }
 
     // EFFECTS: construct remove button and setup for the button
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void makeRemoveButton() {
         removeButton = new JButton(removeString);
         removeButton.setBounds(160, 180, 70, 20);
@@ -225,6 +238,7 @@ public class Panel extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(panel, "Currency not found in the list.", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
+                    removeCurrencyName.setText("");
                 }
             }
         });
@@ -301,15 +315,24 @@ public class Panel extends JPanel {
                             JOptionPane.showMessageDialog(panel, c2.toUpperCase()
                                     + " not in the list, please try again!", "SELECT",
                                     JOptionPane.INFORMATION_MESSAGE, icon);
+                            currency1.setText("");
+                            currency2.setText("");
+                            amount.setText("");
                         }
                     } else {
                         JOptionPane.showMessageDialog(panel, c1.toUpperCase()
                                 + " not in the list, please try again!", "SELECT",
                                 JOptionPane.INFORMATION_MESSAGE, icon);
+                        currency1.setText("");
+                        currency2.setText("");
+                        amount.setText("");
                     }
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(panel, "Please try again!", "SELECT",
                             JOptionPane.INFORMATION_MESSAGE, icon);
+                    currency1.setText("");
+                    currency2.setText("");
+                    amount.setText("");
                 }
             }
         });

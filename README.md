@@ -33,6 +33,8 @@ health.
 of currency and the rate of currency and click the add button
 - You can generate the second required event related to removing a currency from the currency list by type in the name 
 of the currency then click the remove button.
+- You can convert the currency by typing in the first currency and the second currency and type in the amount and press
+convert.
 - You can locate my visual component by opening the application.
 - You can save the state of my application by clicking the save button.
 - You can reload the state of my application by clicking the load button.
