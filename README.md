@@ -38,3 +38,35 @@ convert.
 - You can locate my visual component by opening the application.
 - You can save the state of my application by clicking the save button.
 - You can reload the state of my application by clicking the load button.
+
+
+# Phase 4: Task 2
+Mon Nov 21 14:45:11 PST 2022
+Added currency: HKD
+
+
+Mon Nov 21 14:45:14 PST 2022
+Added currency: USD
+
+
+Mon Nov 21 14:45:21 PST 2022
+Added currency: AUD
+
+
+Mon Nov 21 14:45:29 PST 2022
+CAD converted to HKD
+
+
+Mon Nov 21 14:45:37 PST 2022
+CAD converted to USD
+
+
+Mon Nov 21 14:45:40 PST 2022
+Removed currency: AUD
+
+
+Mon Nov 21 14:45:54 PST 2022
+USD converted to HKD
+
+# Phase 4: Task 3
+

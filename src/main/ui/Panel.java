@@ -61,6 +61,8 @@ public class Panel extends JPanel {
     private JLabel currency2name;
     private JLabel amountToConvert;
 
+
+    // MODIFIES: this, panel
     // EFFECTS: construct JPanel and setup for the panel, and adding the components
     public Panel() {
 
@@ -321,7 +323,6 @@ public class Panel extends JPanel {
             }
         });
     }
-
 
     // function of convert button
     private void convertButtonFunction(String currency1, String currency2, double am) {

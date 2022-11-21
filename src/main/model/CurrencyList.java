@@ -62,9 +62,13 @@ public class CurrencyList implements Writable {
         if (!(currency == null)) {
             if (currencies.size() == 0) {
                 currencies.add(currency);
+                EventLog.getInstance().logEvent(new Event("Added currency: "
+                        + currency.getCurrencyName().toUpperCase()));
                 return true;
             } else if (!currencies.contains(currency)) {
                 currencies.add(currency);
+                EventLog.getInstance().logEvent(new Event("Added currency: "
+                        + currency.getCurrencyName().toUpperCase()));
                 return true;
             }
         }
@@ -84,6 +88,7 @@ public class CurrencyList implements Writable {
             for (Currency curr : currencies) {
                 if (curr.getCurrencyName().equals(currency.toUpperCase())) {
                     currencies.remove(curr);
+                    EventLog.getInstance().logEvent(new Event("Removed currency: " + currency.toUpperCase()));
                     return true;
                 }
             }
@@ -138,6 +143,8 @@ public class CurrencyList implements Writable {
         containsBothCurrencies(prevCurrency.toUpperCase(), nextCurrency.toUpperCase());
         amountInUSD = amount * currency1.getRateToOneUSD();
         finalAmount = amountInUSD / currency2.getRateToOneUSD();
+        EventLog.getInstance().logEvent(new Event(prevCurrency.toUpperCase()
+                + " converted to " + nextCurrency.toUpperCase()));
         return (double) Math.round(finalAmount * 100) / 100;
     }
 
