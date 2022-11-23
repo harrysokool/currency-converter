@@ -69,4 +69,13 @@ Mon Nov 21 14:45:54 PST 2022
 USD converted to HKD
 
 # Phase 4: Task 3
+If I had more time to work on the project, i would refactor some 
+duplicate codes, since modifying the behaviour of one involves 
+modifying the behaviour of the other method. Similar to this, 
+if I discover a bug in one place, I must also correct it 
+in the other place. It is easy to forget to debug. So I think 
+it would be a great idea to refactor duplicate codes. There are 
+duplicate codes, such as the code in the panel class. To fix this,
+I can extract a method, and call that method from inside each of 
+the original methods instead.
 
