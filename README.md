@@ -1,4 +1,4 @@
-# CPSC210 Personal Project
+# Personal Project
 
 ## A Currency Converter
 

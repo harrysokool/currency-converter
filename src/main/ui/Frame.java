@@ -17,7 +17,7 @@ public class Frame extends JFrame {
         this.setUpFrame();
 
         try {
-            sleep(1000);
+            sleep(3000);
         } catch (Exception e) {
             System.out.println();
         }
